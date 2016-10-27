@@ -1487,7 +1487,9 @@ plupload.Uploader = function(options) {
 
 			// Build multipart request
 			if (up.settings.multipart && features.multipart) {
-				xhr.open("post", url, true);
+                            
+                                /*** MODIFICATION TO GET PLUPLOAD TO WORK WITH PUT METHOD ***/
+				xhr.open(up.settings.method, url, true);
 
 				// Set custom headers
 				plupload.each(up.settings.headers, function(value, name) {
@@ -1514,9 +1516,11 @@ plupload.Uploader = function(options) {
 				// if no multipart, send as binary stream
 				url = plupload.buildUrl(up.settings.url, plupload.extend(args, up.settings.multipart_params));
 
-				xhr.open("post", url, true);
+                                /*** MODIFICATION TO GET PLUPLOAD TO WORK WITH PUT METHOD ***/
+				xhr.open(up.settings.method, url, true);
 
-				xhr.setRequestHeader('Content-Type', 'application/octet-stream'); // Binary stream header
+                                /*** MODIFICATION TO GET PLUPLOAD TO WORK WITH PUT METHOD ***/
+				xhr.setRequestHeader('Content-Type', up.settings.content_type); 
 
 				// Set custom headers
 				plupload.each(up.settings.headers, function(value, name) {
@@ -1660,7 +1664,10 @@ plupload.Uploader = function(options) {
 			crop: false
 		},
 		send_file_name: true,
-		send_chunk_number: true
+		send_chunk_number: true,
+                /*** MODIFICATION TO GET PLUPLOAD TO WORK WITH PUT METHOD ***/
+                method: "post",
+                content_type: "application/octet-stream"
 	};
 
 	
